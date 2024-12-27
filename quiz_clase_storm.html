@@ -438,20 +438,24 @@
                 .filter(([_, className]) => availableClasses.includes(className));
         
             // Completar las respuestas si hay menos de 4
-            let iterations = 0; // Contador para evitar bucle infinito
-            while (validAnswers.length < 4 && iterations < 10) { // Máximo 10 iteraciones
-                const missingClass = availableClasses.find(cls => 
+            let remainingClasses = [...availableClasses]; // Copia las clases disponibles
+            while (validAnswers.length < 4) {
+                const missingClass = remainingClasses.find(cls => 
                     !validAnswers.some(([_, className]) => className === cls)
                 );
-                if (missingClass) {
-                    const alternativeText = alternativeAnswersByQuestion[questionData.question]?.[missingClass];
-                    
-                    // Asegurarse de que no se repitan textos de respuestas
-                    if (alternativeText && !validAnswers.some(([answerText, _]) => answerText === alternativeText)) {
-                        validAnswers.push([alternativeText, missingClass]);
-                    }
+        
+                // Detener el bucle si no hay más clases disponibles
+                if (!missingClass) break;
+        
+                const alternativeText = alternativeAnswersByQuestion[questionData.question]?.[missingClass];
+        
+                // Asegurarse de que no se repitan textos de respuestas
+                if (alternativeText && !validAnswers.some(([answerText, _]) => answerText === alternativeText)) {
+                    validAnswers.push([alternativeText, missingClass]);
                 }
-                iterations++; // Incrementar el contador
+        
+                // Eliminar la clase ya utilizada
+                remainingClasses = remainingClasses.filter(cls => cls !== missingClass);
             }
         
             // Limitar a 4 respuestas
@@ -471,6 +475,7 @@
                     </button>` : ''}
             `;
         }
+
 
 
         function goBack() {
