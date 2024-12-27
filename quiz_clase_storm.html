@@ -324,20 +324,35 @@
             loadQuestion();
         }
 
-        function loadQuestion() {
+       function loadQuestion() {
             if (currentQuestionIndex >= questions.length) {
                 showResult();
                 return;
+             }
+
+             const questionData = questions[currentQuestionIndex];
+             const validAnswers = Object.entries(questionData.answers)
+                 .filter(([_, className]) => availableClasses.includes(className));
+
+            // Completar las respuestas si hay menos de 4
+            while (validAnswers.length < 4) {
+                const missingClass = availableClasses.find(cls => 
+                    !validAnswers.some(([_, className]) => className === cls)
+                );
+                if (missingClass) {
+                    validAnswers.push([`Respuesta alternativa para ${missingClass}`, missingClass]);
+                }
             }
 
-            const questionData = questions[currentQuestionIndex];
+            // Limitar a 4 respuestas
+            const limitedAnswers = validAnswers.slice(0, 4);
+        
             const quizContainer = document.getElementById('quiz');
-
             quizContainer.innerHTML = `
                 <div class="question">${questionData.question}</div>
                 <div class="answers">
-                    ${Object.keys(questionData.answers).map(answer => `
-                        <button onclick="selectAnswer('${questionData.answers[answer]}')">${answer}</button>
+                    ${limitedAnswers.map(([answerText, className]) => `
+                        <button onclick="selectAnswer('${className}')">${answerText}</button>
                     `).join('')}
                 </div>
                 ${currentQuestionIndex > 0 ? `
@@ -345,6 +360,8 @@
                         Volver
                     </button>` : ''}
             `;
+        }
+
         }
         function goBack() {
             // Retrocede una pregunta
