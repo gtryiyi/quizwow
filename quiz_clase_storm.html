@@ -189,6 +189,109 @@
             elfo: ["Guerrero", "Druida", "Cazador", "Pícaro", "Sacerdote"]
         };
 
+        const alternativeAnswersByQuestion = {
+            "¿Qué prefieres hacer en combate?": {
+                Guerrero: "Proteger a todos en primera línea.",
+                Cazador: "Disparar desde lejos con precisión.",
+                Sacerdote: "Sanar a mis aliados.",
+                Paladín: "Defender con honor y fuerza.",
+                Pícaro: "Atacar desde las sombras.",
+                Druida: "Controlar la naturaleza para atacar.",
+                Mago: "Lanzar hechizos de fuego y hielo.",
+                Brujo: "Invocar demonios y maldiciones."
+            },
+            "¿Qué tipo de arma prefieres?": {
+                Guerrero: "Una gran espada o un escudo pesado.",
+                Cazador: "Un arco con flechas perfectas.",
+                Sacerdote: "Un bastón lleno de magia sagrada.",
+                Paladín: "Un martillo bendecido por la luz.",
+                Pícaro: "Un par de dagas afiladas.",
+                Druida: "Garras o un bastón de la naturaleza.",
+                Mago: "Un bastón con gemas mágicas.",
+                Brujo: "Un grimorio de hechizos oscuros."
+            },
+            "¿Cómo prefieres enfrentarte a los desafíos?": {
+                Guerrero: "Con fuerza bruta y determinación.",
+                Cazador: "Con estrategia y desde la distancia.",
+                Sacerdote: "Con compasión y apoyo constante.",
+                Paladín: "Con fe y un fuerte sentido de justicia.",
+                Pícaro: "Con rapidez y sigilo.",
+                Druida: "Adaptándome al entorno y transformándome.",
+                Mago: "Con el poder de la magia arcana.",
+                Brujo: "Con invocaciones y maldiciones poderosas."
+            },
+            "¿Qué entorno prefieres explorar?": {
+                Guerrero: "Campos de batalla épicos.",
+                Cazador: "Llanuras abiertas y guaridas de bestias.",
+                Sacerdote: "Templos sagrados y antiguos.",
+                Paladín: "Fortalezas y lugares de honor.",
+                Pícaro: "Calles oscuras y callejones.",
+                Druida: "Bosques y lugares salvajes.",
+                Mago: "Bibliotecas llenas de secretos.",
+                Brujo: "Criptas y lugares prohibidos."
+            },
+            "¿Qué rol prefieres en un equipo?": {
+                Guerrero: "Tanque, protegiendo a todos.",
+                Cazador: "DPS a distancia, infligiendo daño constante.",
+                Sacerdote: "Curar y apoyar al equipo.",
+                Paladín: "Ser el líder que inspira a todos.",
+                Pícaro: "Eliminar objetivos prioritarios rápidamente.",
+                Druida: "Apoyar con versatilidad en cualquier rol.",
+                Mago: "Destruir enemigos con magia devastadora.",
+                Brujo: "Debilitar enemigos con maldiciones."
+            },
+            "¿Qué te motiva más en un juego?": {
+                Guerrero: "Ser el más fuerte y resistente del grupo.",
+                Cazador: "Ser el estratega que siempre acierta.",
+                Sacerdote: "Ser la razón por la que todos sobreviven.",
+                Paladín: "Defender la justicia y la luz.",
+                Pícaro: "Sorprender y superar a mis enemigos.",
+                Druida: "Estar en armonía con la naturaleza.",
+                Mago: "Dominar las artes arcanas y mágicas.",
+                Brujo: "Infundir miedo y caos con mis poderes."
+            },
+            "¿Qué harías si te invitan a una fiesta?": {
+                Guerrero: "Llegar el primero y organizar el caos.",
+                Cazador: "Traer a mi leal mascota para animar el ambiente.",
+                Sacerdote: "Ayudar a organizar y cuidar de todos.",
+                Paladín: "Dar un discurso inspirador para motivar a todos.",
+                Pícaro: "Observar desde las sombras y planear algo divertido.",
+                Druida: "Crear un ambiente mágico y natural.",
+                Mago: "Deslumbrar a todos con trucos mágicos.",
+                Brujo: "Añadir un toque de misterio e intriga."
+            },
+            "¿Qué compañero elegirías para tu aventura?": {
+                Guerrero: "Un escudo confiable.",
+                Cazador: "Un lobo o un halcón entrenado.",
+                Sacerdote: "Un compañero que pueda sanar y apoyar.",
+                Paladín: "Un aliado que lucha por la justicia.",
+                Pícaro: "Un compañero rápido y silencioso.",
+                Druida: "Un animal leal o un espíritu de la naturaleza.",
+                Mago: "Un aprendiz ansioso por aprender.",
+                Brujo: "Un demonio poderoso para invocar."
+            },
+            "¿Cómo celebrarías una victoria épica?": {
+                Guerrero: "Brindando con mis aliados en una taberna.",
+                Cazador: "Cazando una bestia mítica en honor a la victoria.",
+                Sacerdote: "Agradeciendo a mis compañeros por su esfuerzo.",
+                Paladín: "Rindiendo tributo a los caídos y a la luz.",
+                Pícaro: "Desapareciendo antes de que alguien me vea.",
+                Druida: "Honrando a la naturaleza con una ceremonia.",
+                Mago: "Escribiendo todo en un grimorio para la posteridad.",
+                Brujo: "Estudiando los secretos de la batalla ganada."
+            },
+            "¿Qué harías si ves una pelea en tu grupo?": {
+                Guerrero: "Intervenir y poner orden a puñetazos.",
+                Cazador: "Intentar calmar la situación desde lejos.",
+                Sacerdote: "Ayudar a sanar a los heridos y calmar los ánimos.",
+                Paladín: "Hablar con justicia y resolver el conflicto.",
+                Pícaro: "Observar desde las sombras para sacar ventaja.",
+                Druida: "Usar magia para calmar los ánimos.",
+                Mago: "Lanzar un hechizo que calme la situación.",
+                Brujo: "Avivar el conflicto para que sea más interesante."
+            }
+        };
+        
         const questions = [
             {
                 question: "¿Qué prefieres hacer en combate?",
@@ -328,22 +431,23 @@
             if (currentQuestionIndex >= questions.length) {
                 showResult();
                 return;
-             }
-
-             const questionData = questions[currentQuestionIndex];
-             const validAnswers = Object.entries(questionData.answers)
-                 .filter(([_, className]) => availableClasses.includes(className));
-
+            }
+        
+            const questionData = questions[currentQuestionIndex];
+            const validAnswers = Object.entries(questionData.answers)
+                .filter(([_, className]) => availableClasses.includes(className));
+        
             // Completar las respuestas si hay menos de 4
             while (validAnswers.length < 4) {
                 const missingClass = availableClasses.find(cls => 
                     !validAnswers.some(([_, className]) => className === cls)
                 );
                 if (missingClass) {
-                    validAnswers.push([`Respuesta alternativa para ${missingClass}`, missingClass]);
+                    const alternativeText = alternativeAnswersByQuestion[questionData.question]?.[missingClass] || `Alternativa para ${missingClass}`;
+                    validAnswers.push([alternativeText, missingClass]);
                 }
             }
-
+        
             // Limitar a 4 respuestas
             const limitedAnswers = validAnswers.slice(0, 4);
         
@@ -361,6 +465,7 @@
                     </button>` : ''}
             `;
         }
+
         function goBack() {
             // Retrocede una pregunta
             currentQuestionIndex--;
