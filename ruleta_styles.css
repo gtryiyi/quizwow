@@ -42,23 +42,23 @@ h1 {
     align-items: center;
     background: #000000; /* Fondo negro */
     display: flex;
-    flex-flow: column wrap;
+    flex-flow: column nowrap;
     font-size: 1.125vw;
     padding: 1vw 6vw; /* Reduce el padding superior e inferior */
-    margin: 0 auto; /* Asegura centrado horizontal */
+    margin: 0 auto; /* Centra el contenedor horizontalmente */
     border-radius: 10px; /* Bordes redondeados */
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.7); /* Sombra */
-    max-width: 1440px; /* Ancho máximo opcional */
+    width: auto; /* Ancho dinámico */
+    max-width: 600px; /* Límite opcional para no exceder pantallas grandes */
 }
-.compsoul-roulette-label {
-    background: #ff0000;
-    color: #ffffff;
-    cursor: pointer;
-    font-family: Helvetica, Arial, sans-serif;
-    font-weight: 200;
-    padding: 0.8vw 1.2vw;
-    margin: 0 0 3.2vw;
-    text-transform: uppercase;
+.compsoul-roulette {
+    --size: 35vw; /* Ajustado al ancho del viewport para hacerlo más compacto */
+    height: var(--size);
+    width: var(--size);
+    position: relative;
+    border-radius: 50%; /* Mantiene la forma circular */
+    background: #cd2b7e;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 }
 .compsoul-roulette-label:before {
     content: "GIRAR!";
