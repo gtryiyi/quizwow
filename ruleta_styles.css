@@ -39,18 +39,17 @@ h1 {
     width: 1px !important;
 }
 .compsoul-body {
-    align-items: center;
-    background: #000000; /* Fondo negro */
     display: flex;
-    gap: 2vw;
-    flex-flow: column nowrap;
-    font-size: 1.125vw;
-    padding: 1vw 6vw; /* Reduce el padding superior e inferior */
-    margin: 0 auto; /* Centra el contenedor horizontalmente */
+    flex-direction: column; /* Elementos en columna */
+    align-items: center; /* Centra horizontalmente */
+    justify-content: space-between; /* Distribuye los elementos verticalmente */
+    background: #000000; /* Fondo negro */
+    padding: 1vw 4vw; /* Espaciado ajustado */
+    gap: 1vw; /* Espacio entre elementos */
     border-radius: 10px; /* Bordes redondeados */
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.7); /* Sombra */
-    width: auto; /* Ancho dinámico */
-    max-width: 600px; /* Límite opcional para no exceder pantallas grandes */
+    max-width: 600px; /* Ancho máximo */
+    margin: auto; /* Centrado horizontal */
 }
 .compsoul-roulette {
     --size: 35vw; /* Ajustado al ancho del viewport para hacerlo más compacto */
@@ -62,20 +61,20 @@ h1 {
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 }
 .compsoul-roulette-label:before {
-    content: "GIRAR!"; /* Mantengo el texto exacto que tienes */
-    display: block; /* Asegura que actúe como un bloque separado */
+    content: "GIRAR!";
+    display: block; /* Asegura que actúe como un bloque */
     text-align: center; /* Centra el texto */
     background: #ff0000; /* Fondo rojo */
     color: #ffffff; /* Texto blanco */
     padding: 0.8vw 1.2vw; /* Espaciado interno */
-    margin-top: 2vw; /* Añade espacio entre la ruleta y el botón */
+    margin-top: 1vw; /* Espaciado entre la ruleta y el botón */
     font-family: Helvetica, Arial, sans-serif; /* Fuente */
-    font-weight: bold; /* Negrita */
+    font-weight: bold; /* Texto en negrita */
     text-transform: uppercase; /* Texto en mayúsculas */
     border-radius: 5px; /* Bordes redondeados */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Sombra */
-    position: relative; /* Respeta el flujo normal del diseño */
-    z-index: 10; /* Asegura que esté por encima de otros elementos */
+    position: relative; /* Posición relativa */
+    z-index: 10; /* Asegura que el botón esté por encima */
 }
 .compsoul-roulette {
     --size: 40vw; /* Ajustado al ancho del viewport */
