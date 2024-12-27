@@ -443,8 +443,12 @@
                     !validAnswers.some(([_, className]) => className === cls)
                 );
                 if (missingClass) {
-                    const alternativeText = alternativeAnswersByQuestion[questionData.question]?.[missingClass] || `Alternativa para ${missingClass}`;
-                    validAnswers.push([alternativeText, missingClass]);
+                    const alternativeText = alternativeAnswersByQuestion[questionData.question]?.[missingClass];
+                    
+                    // Asegurarse de que no se repitan textos de respuestas
+                    if (alternativeText && !validAnswers.some(([answerText, _]) => answerText === alternativeText)) {
+                        validAnswers.push([alternativeText, missingClass]);
+                    }
                 }
             }
         
