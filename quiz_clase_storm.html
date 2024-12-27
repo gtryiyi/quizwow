@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eligiendo mi clase para la aventura WoW Classic</title>
+    <style>
+        @font-face {
+            font-family: 'FritzQuadrata';
+            src: url('https://example.com/fritz-quadrata.ttf') format('truetype');
+        }
+        body {
+            font-family: 'FritzQuadrata', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://i.imgur.com/bNVCtgR.png');
+            background-size: cover;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            max-width: 800px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+            text-align: center;
+        }
+        h1 {
+            text-align: center;
+            color: #FFD700;
+            text-shadow: 2px 2px 5px #000;
+        }
+        .mute-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid #FFD700;
+            color: #FFD700;
+            font-family: 'FritzQuadrata', Arial, sans-serif;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 5px;
+            padding: 10px;
+            cursor: pointer;
+            text-shadow: 1px 1px 3px #000;
+        }
+        .mute-button:hover {
+            background: rgba(255, 215, 0, 0.8);
+            color: #000;
+        }
+
+        .answers button {
+            display: block;
+            margin: 10px auto;
+            padding: 10px;
+            width: 80%;
+            background: linear-gradient(to bottom, #6b0202, #400101);
+            color: #FFD700;
+            font-family: 'FritzQuadrata', Arial, sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+            border: 2px solid #FFD700;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+            text-shadow: 1px 1px 3px #000;
+        }
+        .answers button:hover {
+            background: linear-gradient(to bottom, #400101, #6b0202);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+        }
+        #start-button button {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            background: linear-gradient(to bottom, #6b0202, #400101);
+            color: #FFD700;
+            font-family: 'FritzQuadrata', Arial, sans-serif;
+            font-weight: bold;
+            border: 2px solid #FFD700;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+            text-shadow: 1px 1px 3px #000;
+        }
+        #start-button button:hover {
+            background: linear-gradient(to bottom, #400101, #6b0202);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+        }
+        #race-select {
+                background: linear-gradient(to bottom, #6b0202, #400101);
+                color: #FFD700;
+                font-family: 'FritzQuadrata', Arial, sans-serif;
+                font-size: 14px;
+                font-weight: bold;
+                border: 2px solid #FFD700;
+                border-radius: 5px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+                padding: 8px;
+                width: 50%;
+                margin: 0 auto 20px auto; /* Added margin-bottom */
+                display: block;
+                text-shadow: 1px 1px 3px #000;
+                appearance: none;
+                -moz-appearance: none;
+                -webkit-appearance: none;
+                background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%23FFD700" class="bi bi-caret-down-fill" viewBox="0 0 16 16"><path d="M7.247 11.14 2.451 5.658c-.566-.625-.106-1.658.765-1.658h9.588c.87 0 1.33 1.033.765 1.658L8.753 11.14a1 1 0 0 1-1.506 0z"/></svg>');
+                background-repeat: no-repeat;
+                background-position: right 10px center;
+                background-size: 12px;
+            }
+
+            #race-select:hover {
+                background: linear-gradient(to bottom, #400101, #6b0202);
+                box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+            }
+
+            #race-select option {
+                background: #6b0202;
+                color: #FFD700;
+            }
+            #race-select:hover {
+                background: linear-gradient(to bottom, #400101, #6b0202);
+                box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+            }
+            #logo-container {
+                position: absolute;
+                top: 20px; /* Espacio desde la parte superior */
+                width: 100%; /* Ocupa todo el ancho para centrar el logo */
+                text-align: center; /* Centra el logo horizontalmente */
+                z-index: 10; /* Asegura que el logo esté por encima de otros elementos */
+            }
+
+            #logo {
+                max-width: 100px; /* Ajusta el tamaño máximo del logo */
+                height: auto; /* Mantiene la proporción del logo */
+            }
+</style>
+</head>
+<body>
+    <div id="logo-container">
+        <img src="https://i.imgur.com/4WIL3ex.png" alt="Logo" id="logo">
+    </div>
+    <button class="mute-button" id="mute-button">Silenciar</button>
+    
+    <div class="container" id="start-screen">
+    
+        <h1>Eligiendo mi clase para la aventura WoW Classic</h1>
+        <p>Selecciona tu raza para empezar el quiz:</p>
+        <select id="race-select">
+            <option value="">Selecciona una raza</option>
+            <option value="enano">Enano</option>
+            <option value="gnomo">Gnomo</option>
+            <option value="humano">Humano</option>
+            <option value="elfo">Elfo de la Noche</option>
+        </select>
+        <div id="start-button">
+            <button onclick="startQuiz()">Comenzar</button>
+        </div>
+    </div>
+    <audio id="background-music" loop>
+        <source src="https://wow.zamimg.com/sound-ids/live/enus/212/53204/stormwind03-moment.mp3" type="audio/mpeg">
+    </audio>
+    <script>
+        const backgroundMusic = document.getElementById('background-music');
+        const muteButton = document.getElementById('mute-button');
+
+        muteButton.addEventListener('click', () => {
+            if (backgroundMusic.muted) {
+                backgroundMusic.muted = false;
+                muteButton.textContent = 'Silenciar';
+            } else {
+                backgroundMusic.muted = true;
+                muteButton.textContent = 'Musica';
+            }
+        });
+
+        backgroundMusic.volume = 0.1;
+        backgroundMusic.play();
+
+        const classesByRace = {
+            enano: ["Guerrero", "Cazador", "Sacerdote", "Paladín"],
+            gnomo: ["Guerrero", "Pícaro", "Mago", "Brujo"],
+            humano: ["Guerrero", "Paladín", "Pícaro", "Sacerdote", "Mago", "Brujo"],
+            elfo: ["Guerrero", "Druida", "Cazador", "Pícaro", "Sacerdote"]
+        };
+
+        const questions = [
+            {
+                question: "¿Qué prefieres hacer en combate?",
+                answers: {
+                    "Proteger a mis aliados siendo un muro impenetrable.": "Guerrero",
+                    "Lanzar flechas desde lejos con precisión.": "Cazador",
+                    "Lanzar hechizos poderosos y oscuros.": "Brujo",
+                    "Apoyar y curar a mis compañeros.": "Sacerdote"
+                }
+            },
+            {
+                question: "¿Qué tipo de arma prefieres?",
+                answers: {
+                    "Un martillo bendecido por la luz.": "Paladín",
+                    "Un arco bien afinado y una mascota leal.": "Cazador",
+                    "Un báculo cargado de energía mágica.": "Mago",
+                    "Garras afiladas y transformaciones épicas.": "Druida"
+                }
+            },
+            {
+                question: "¿Cómo prefieres enfrentarte a los desafíos?",
+                answers: {
+                    "Con fuerza y resistencia.": "Guerrero",
+                    "Con magia oscura e invocaciones.": "Brujo",
+                    "Con rapidez y ataques sorpresa.": "Pícaro",
+                    "Ayudando a mi equipo y asegurando su bienestar.": "Sacerdote"
+                }
+            },
+            {
+                question: "¿Qué entorno prefieres explorar?",
+                answers: {
+                    "Llanuras abiertas y guaridas de bestias.": "Cazador",
+                    "Bosques y lugares salvajes.": "Druida",
+                    "Bibliotecas oscuras y criptas encantadas.": "Brujo",
+                    "Campos de batalla épicos.": "Guerrero"
+                }
+            },
+            {
+                question: "¿Qué rol prefieres en un equipo?",
+                answers: {
+                    "Tanque, protegiendo a todos.": "Paladín",
+                    "DPS a distancia, infligiendo daño constante.": "Cazador",
+                    "Curar y apoyar al equipo.": "Sacerdote",
+                    "Eliminar objetivos prioritarios rápidamente.": "Pícaro"
+                }
+            },
+            {
+                question: "¿Qué te motiva más en un juego?",
+                answers: {
+                    "Ser el más fuerte y resistente del grupo.": "Guerrero",
+                    "Dominar las artes arcanas y mágicas.": "Mago",
+                    "Ser la razón por la que todos sobreviven.": "Sacerdote",
+                    "Infundir miedo y caos con mis poderes oscuros.": "Brujo"
+                }
+            },
+            {
+                question: "¿Qué harías si te invitan a una fiesta?",
+                answers: {
+                    "Llegar el primero y organizar el caos.": "Guerrero",
+                    "Deslumbrar a todos con trucos mágicos.": "Mago",
+                    "Traer a mi leal mascota para animar el ambiente.": "Cazador",
+                    "Quedarme en la sombra observando todo.": "Pícaro"
+                }
+            },
+            {
+                question: "¿Qué compañero elegirías para tu aventura?",
+                answers: {
+                    "Un escudo confiable.": "Paladín",
+                    "Un libro lleno de hechizos oscuros.": "Brujo",
+                    "Un oso o un lobo, la naturaleza manda.": "Druida",
+                    "Un par de dagas afiladas.": "Pícaro"
+                }
+            },
+            {
+                question: "¿Cómo celebrarías una victoria épica?",
+                answers: {
+                    "Brindando con mis aliados en una taberna.": "Guerrero",
+                    "Escribiendo todo en un grimorio para la posteridad.": "Mago",
+                    "Agradeciendo a mis compañeros por su esfuerzo.": "Sacerdote",
+                    "Desapareciendo antes de que alguien me vea.": "Pícaro"
+                }
+            },
+            {
+                question: "¿Qué harías si ves una pelea en tu grupo?",
+                answers: {
+                    "Intervenir y poner orden a puñetazos.": "Guerrero",
+                    "Lanzar un hechizo que calme los ánimos.": "Mago",
+                    "Reforzar la moral de todos con palabras sabias.": "Paladín",
+                    "Avivar el conflicto para que sea más interesante.": "Brujo"
+                }
+            }
+        ];
+
+        const classImages = {
+            "Guerrero": "https://i.imgur.com/l4WBu3J.png",
+            "Paladín": "https://i.imgur.com/y7pTF4i.png",
+            "Brujo": "https://i.imgur.com/ZQQx5XP.png",
+            "Mago": "https://i.imgur.com/NCASZ2y.png",
+            "Cazador": "https://i.imgur.com/GGOhEIQ.png",
+            "Sacerdote": "https://i.imgur.com/UZtvHs4.png",
+            "Druida": "https://i.imgur.com/F3WZNAv.png",
+            "Pícaro": "https://i.imgur.com/8NiENhW.png"
+        };
+
+        let selectedRace = "";
+        let availableClasses = [];
+        let currentQuestionIndex = 0;
+        let score = {};
+
+        function startQuiz() {
+            const raceSelect = document.getElementById('race-select');
+            selectedRace = raceSelect.value;
+
+            if (!selectedRace) {
+                alert('Por favor, selecciona una raza antes de comenzar.');
+                return;
+            }
+
+            availableClasses = classesByRace[selectedRace];
+            availableClasses.forEach(cls => {
+                score[cls] = 0;
+            });
+
+            // Ocultar la pantalla inicial y mostrar el quiz
+            document.getElementById('start-screen').style.display = 'none';
+            document.getElementById('quiz-container').style.display = 'block';
+
+            // Iniciar la música al comenzar el quiz
+            backgroundMusic.play().catch((err) => {
+                console.error("No se pudo reproducir la música:", err);
+            });
+
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            if (currentQuestionIndex >= questions.length) {
+                showResult();
+                return;
+            }
+
+            const questionData = questions[currentQuestionIndex];
+            const quizContainer = document.getElementById('quiz');
+
+            quizContainer.innerHTML = `
+                <div class="question">${questionData.question}</div>
+                <div class="answers">
+                    ${Object.keys(questionData.answers).map(answer => `
+                        <button onclick="selectAnswer('${questionData.answers[answer]}')">${answer}</button>
+                    `).join('')}
+                </div>
+                ${currentQuestionIndex > 0 ? `
+                    <button onclick="goBack()" style="margin-top: 20px; padding: 10px 20px; background: #FFD700; border: none; color: #000; font-weight: bold; border-radius: 5px; cursor: pointer;">
+                        Volver
+                    </button>` : ''}
+            `;
+        }
+        function goBack() {
+            // Retrocede una pregunta
+            currentQuestionIndex--;
+            loadQuestion();
+        }
+
+        function selectAnswer(selectedClass) {
+            if (availableClasses.includes(selectedClass)) {
+                score[selectedClass]++;
+            }
+            currentQuestionIndex++;
+            loadQuestion();
+        }
+
+        function showResult() {
+            const highestScore = Math.max(...Object.values(score));
+            const bestClass = Object.keys(score).find(cls => score[cls] === highestScore);
+
+            document.getElementById('quiz-container').style.display = 'none';
+            const resultContainer = document.getElementById('result-container');
+            resultContainer.style.display = 'block';
+
+            resultContainer.innerHTML = `
+                <div class="result">
+                    <p>La clase que mejor se ajusta a ti es: <strong>${bestClass}</strong></p>
+                    <img src="${classImages[bestClass]}" alt="${bestClass}" style="max-width: 100%; border-radius: 10px;">
+                </div>
+            `;
+        }
+    </script>
+
+    <div class="container" id="quiz-container" style="display: none;">
+        <div id="quiz"></div>
+    </div>
+    <div class="container" id="result-container" style="display: none;"></div>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ruleta</title>
+    <link rel="stylesheet" href="ruleta_styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>La Ruleta del Rabioso</h1>
+        <div class="compsoul-body">
+            <input class="compsoul-roulette-checkbox hidden" id="compsoul-roulette-checkbox" type="checkbox" name="compsoul-roulette-checkbox">
+            <label class="compsoul-roulette-label" for="compsoul-roulette-checkbox"></label>
+            <div class="compsoul-roulette">
+                <ul class="roulette-list">
+                    <li class="roulette-item">5 Subs</li>
+                    <li class="roulette-item">10 subs</li>
+                    <li class="roulette-item">5 subs</li>
+                    <li class="roulette-item">15 subs</li>
+                    <li class="roulette-item">10 subs</li>
+                    <li class="roulette-item">1 sub</li>
+                    <li class="roulette-item">50 subs</li>
+                    <li class="roulette-item">1 sub</li>
+                    <li class="roulette-item">15 subs</li>
+                    <li class="roulette-item">5 subs</li>
+                    <li class="roulette-item">10 subs</li>
+                    <li class="roulette-item">5 subs</li>
+                </ul>
+                <div class="roulette-marker"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const rouletteList = document.querySelector('.roulette-list');
+    
+        // Probabilidades acumulativas para cada segmento
+        const probabilities = [
+            0.2, 0.1, 0.2, 0.075, 0.2, 0.05, 0.05, 0.05, 0.075, 0.2, 0.1, 0.2
+        ]; // Suma total = 1
+    
+        // Mapeo de resultados con sonidos
+        const soundMap = [
+            'sounds/multiplica_x1.mp3',
+            'sounds/multiplica_x2.mp3',
+            'sounds/multiplica_x1.mp3',
+            'sounds/multiplica_x3.mp3',
+            'sounds/multiplica_x1.mp3',
+            'sounds/multiplica_x0.mp3',
+            'sounds/multiplica_x10.mp3',
+            'sounds/multiplica_x0.mp3',
+            'sounds/multiplica_x3.mp3',
+            'sounds/multiplica_x1.mp3',
+            'sounds/multiplica_x2.mp3',
+            'sounds/multiplica_x1.mp3'
+        ];
+    
+        const getRandomSegment = () => {
+            const random = Math.random();
+            let accumulated = 0;
+    
+            for (let i = 0; i < probabilities.length; i++) {
+                accumulated += probabilities[i];
+                if (random <= accumulated) {
+                    return i; // Índice del segmento
+                }
+            }
+        };
+    
+        const playSound = (index) => {
+            const audio = new Audio(soundMap[index]);
+            audio.play();
+        };
+    
+        const startRoulette = () => {
+            let rotation = 0;
+            let speed = 20; // Velocidad inicial
+            let slowingDown = false;
+    
+            const selectedSegment = getRandomSegment();
+            const segmentAngle = 360 / probabilities.length;
+            const targetAngle = selectedSegment * segmentAngle;
+            const totalSpins = 3; // Número de vueltas completas antes de detenerse
+            const finalAngle = totalSpins * 360 + targetAngle;
+    
+            const spin = () => {
+                if (!slowingDown) {
+                    rotation += speed; // Girar a velocidad constante
+                } else {
+                    if (rotation < finalAngle) {
+                        speed = Math.max(speed - 0.5, 0.5); // Reducir velocidad gradualmente
+                        rotation += speed;
+                    } else {
+                        rotation = finalAngle; // Detener exactamente en el ángulo final
+                        rouletteList.style.transform = `rotate(${rotation}deg)`;
+    
+                        // Reproducir el sonido correspondiente al resultado
+                        playSound(selectedSegment);
+                        return; // Salir del ciclo
+                    }
+                }
+    
+                rouletteList.style.transform = `rotate(${rotation}deg)`;
+                requestAnimationFrame(spin); // Continuar animación
+            };
+    
+            setTimeout(() => slowingDown = true, 5000); // Comenzar desaceleración tras 5 segundos
+            spin();
+        };
+    
+        document.querySelector('.compsoul-roulette-label').addEventListener('click', startRoulette);
+    </script>    
+</body>
+</html>

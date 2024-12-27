@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eligiendo mi raza para la aventura WoW Hardcore</title>
+    <style>
+        @font-face {
+            font-family: 'FritzQuadrata';
+            src: url('https://example.com/fritz-quadrata.ttf') format('truetype'); /* Asegúrate de alojar esta fuente */
+        }
+        body {
+            font-family: 'FritzQuadrata', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://i.imgur.com/bNVCtgR.png');
+            background-size: cover;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            cursor: url('https://static.wikia.nocookie.net/wowpedia/images/f/ff/Pointer_gauntlet_cast_on.png/revision/latest?cb=20230512063309'), auto;
+        }
+        .container {
+            max-width: 800px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+            text-align: center;
+        }
+        h1 {
+            text-align: center;
+            color: #FFD700;
+            text-shadow: 2px 2px 5px #000;
+        }
+        .question {
+            margin: 20px 0;
+            font-size: 1.5em;
+            font-style: italic;
+        }
+        .answers button {
+            display: block;
+            margin: 10px auto;
+            padding: 10px;
+            width: 80%;
+            background: linear-gradient(to bottom, #6b0202, #400101);
+            color: #FFD700;
+            font-family: 'FritzQuadrata', Arial, sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+            border: 2px solid #FFD700;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+            text-shadow: 1px 1px 3px #000;
+        }
+        .answers button:hover {
+            background: linear-gradient(to bottom, #400101, #6b0202);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+        }
+        .result {
+            text-align: center;
+            font-size: 1.5em;
+            margin-top: 30px;
+        }
+        .result img {
+            margin-top: 20px;
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+        }
+        #start-button {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+        }
+        #start-button button {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            background: linear-gradient(to bottom, #6b0202, #400101);
+            color: #FFD700;
+            font-family: 'FritzQuadrata', Arial, sans-serif;
+            font-weight: bold;
+            border: 2px solid #FFD700;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+            text-shadow: 1px 1px 3px #000;
+        }
+        #start-button button:hover {
+            background: linear-gradient(to bottom, #400101, #6b0202);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+        }
+        .mute-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid #FFD700;
+            color: #FFD700;
+            font-family: 'FritzQuadrata', Arial, sans-serif;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 5px;
+            padding: 10px;
+            cursor: pointer;
+            text-shadow: 1px 1px 3px #000;
+        }
+        .mute-button:hover {
+            background: rgba(255, 215, 0, 0.8);
+            color: #000;
+        }
+        #logo-container {
+            position: absolute;
+            top: 20px; /* Espacio desde la parte superior */
+            width: 100%; /* Ocupa todo el ancho para centrar el logo */
+            text-align: center; /* Centra el logo horizontalmente */
+            z-index: 10; /* Asegura que el logo esté por encima de otros elementos */
+        }
+
+        #logo {
+            max-width: 100px; /* Ajusta el tamaño máximo del logo */
+            height: auto; /* Mantiene la proporción del logo */
+        }
+
+    </style>
+</head>
+<body>
+    <div id="logo-container">
+        <img src="https://i.imgur.com/4WIL3ex.png" alt="Logo" id="logo">
+    </div>
+    <button class="mute-button" id="mute-button">Silenciar</button>
+    <div class="container" id="start-screen">
+        <h1>Eligiendo mi raza para la aventura WoW Hardcore</h1>
+        <div id="start-button">
+            <button onclick="startQuiz()">Comenzar</button>
+        </div>
+    </div>
+    <div class="container" id="quiz-container" style="display: none;">
+        <div id="quiz">
+            <!-- Questions will load dynamically here -->
+        </div>
+        <div class="result" id="result"></div>
+    </div>
+
+    <audio id="background-music" loop>
+        <source src="https://wow.zamimg.com/sound-ids/live/enus/212/53204/stormwind03-moment.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const questions = [
+            {
+                question: "¿Qué prefieres hacer en un juego?",
+                answers: {
+                    "Proteger a mis aliados en combate.": "Enano",
+                    "Encontrar soluciones creativas a los problemas.": "Gnomo",
+                    "Liderar el equipo hacia la victoria.": "Humano",
+                    "Actuar con sigilo y precisión.": "Elfo de la noche"
+                }
+            },
+            {
+                question: "¿Cómo te describirías en situaciones desafiantes?",
+                answers: {
+                    "Persistente y decidido.": "Enano",
+                    "Ingenioso y rápido para adaptarme.": "Gnomo",
+                    "Carismático y buen comunicador.": "Humano",
+                    "Calmado y estratégico.": "Elfo de la noche"
+                }
+            },
+            {
+                question: "¿Qué entorno prefieres para tus aventuras?",
+                answers: {
+                    "Montañas y paisajes rocosos.": "Enano",
+                    "Laboratorios llenos de inventos.": "Gnomo",
+                    "Ciudades llenas de actividad.": "Humano",
+                    "Bosques y lugares tranquilos.": "Elfo de la noche"
+                }
+            },
+            {
+                question: "¿Qué tipo de arma prefieres usar en un juego?",
+                answers: {
+                    "Un martillo o un hacha resistente.": "Enano",
+                    "Gadgets y dispositivos inteligentes.": "Gnomo",
+                    "Una espada legendaria.": "Humano",
+                    "Un arco o dagas rápidas.": "Elfo de la noche"
+                }
+            },
+            {
+                question: "¿Cómo celebras tus logros en un juego?",
+                answers: {
+                    "Con una bebida en la taberna.": "Enano",
+                    "Inventando algo nuevo para mejorar.": "Gnomo",
+                    "Motivando a mi equipo para el siguiente reto.": "Humano",
+                    "Disfrutando del momento en silencio.": "Elfo de la noche"
+                }
+            },
+            {
+                question: "¿Qué te motiva más en un juego?",
+                answers: {
+                    "Superar los retos más difíciles.": "Enano",
+                    "Ser creativo y explorar nuevas posibilidades.": "Gnomo",
+                    "Ayudar a otros y liderar un equipo.": "Humano",
+                    "Descubrir secretos y tesoros ocultos.": "Elfo de la noche"
+                }
+            },
+            {
+                question: "¿Qué rol prefieres en un equipo?",
+                answers: {
+                    "Tanque, absorbiendo daño para proteger al grupo.": "Enano",
+                    "Soporte, aportando ingenio y soluciones.": "Gnomo",
+                    "Líder, tomando decisiones importantes.": "Humano",
+                    "DPS, infligiendo daño de manera precisa.": "Elfo de la noche"
+                }
+            },
+            {
+                question: "¿Qué estética prefieres para tu personaje?",
+                answers: {
+                    "Robusto y fuerte.": "Enano",
+                    "Pequeño pero ingenioso.": "Gnomo",
+                    "Clásico y heroico.": "Humano",
+                    "Ágil y elegante.": "Elfo de la noche"
+                }
+            },
+            {
+                question: "¿Qué tipo de misión te llama más la atención?",
+                answers: {
+                    "Explorar mazmorras profundas.": "Enano",
+                    "Resolver acertijos complicados.": "Gnomo",
+                    "Completar misiones épicas para la historia.": "Humano",
+                    "Descubrir secretos en la naturaleza.": "Elfo de la noche"
+                }
+            },
+            {
+                question: "¿Cómo interactúas con tus compañeros de equipo?",
+                answers: {
+                    "Con humor y camaradería.": "Enano",
+                    "Ofreciendo ideas y estrategias.": "Gnomo",
+                    "Inspirando confianza y liderazgo.": "Humano",
+                    "Con gestos tranquilos y eficientes.": "Elfo de la noche"
+                }
+            }
+        ];
+
+        const images = {
+            "Enano": "https://static1.srcdn.com/wordpress/wp-content/uploads/2019/08/WoW-Classic-Dwarves.jpg",
+            "Gnomo": "https://static1.srcdn.com/wordpress/wp-content/uploads/2019/08/WoW-Classic-Gnomes.jpg",
+            "Humano": "https://static1.srcdn.com/wordpress/wp-content/uploads/2019/08/WoW-Classic-Human.jpg",
+            "Elfo de la noche": "https://w0.peakpx.com/wallpaper/147/691/HD-wallpaper-night-elf-background-wow-monk.jpg"
+        };
+
+        const quizContainer = document.getElementById('quiz');
+        const resultContainer = document.getElementById('result');
+        const startScreen = document.getElementById('start-screen');
+        const quizScreen = document.getElementById('quiz-container');
+        const backgroundMusic = document.getElementById('background-music');
+        const muteButton = document.getElementById('mute-button');
+
+        let currentQuestion = 0;
+        let score = { "Enano": 0, "Gnomo": 0, "Humano": 0, "Elfo de la noche": 0 };
+
+        muteButton.addEventListener('click', () => {
+            if (backgroundMusic.muted) {
+                backgroundMusic.muted = false;
+                muteButton.textContent = 'Silenciar';
+            } else {
+                backgroundMusic.muted = true;
+                muteButton.textContent = 'Musica';
+            }
+        });
+
+        function startQuiz() {
+            startScreen.style.display = 'none';
+            quizScreen.style.display = 'block';
+            backgroundMusic.play();
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            if (currentQuestion >= questions.length) {
+                showResult();
+                return;
+            }
+
+            const questionData = questions[currentQuestion];
+            quizContainer.innerHTML = `
+                <div class="question">${questionData.question}</div>
+                <div class="answers">
+                    ${Object.keys(questionData.answers).map(answer => `
+                        <button onclick="selectAnswer('${questionData.answers[answer]}')">${answer}</button>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        function selectAnswer(race) {
+            score[race]++;
+            currentQuestion++;
+            loadQuestion();
+        }
+
+        function showResult() {
+            const highestScore = Math.max(...Object.values(score));
+            const bestRace = Object.keys(score).find(race => score[race] === highestScore);
+            resultContainer.innerHTML = `
+                <p>La raza que mejor se ajusta a ti es: <strong>${bestRace}</strong></p>
+                <img src="${images[bestRace]}" alt="${bestRace}">
+            `;
+            quizContainer.innerHTML = '';
+        }
+
+        backgroundMusic.volume = 0.1;
+    </script>
+</body>
+</html>
