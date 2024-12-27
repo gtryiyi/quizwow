@@ -61,9 +61,21 @@ h1 {
     background: #cd2b7e;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 }
-
 .compsoul-roulette-label:before {
-    content: "GIRAR!";
+    content: "GIRAR!"; /* Mantengo el texto exacto que tienes */
+    display: block; /* Asegura que actúe como un bloque separado */
+    text-align: center; /* Centra el texto */
+    background: #ff0000; /* Fondo rojo */
+    color: #ffffff; /* Texto blanco */
+    padding: 0.8vw 1.2vw; /* Espaciado interno */
+    margin-top: 2vw; /* Añade espacio entre la ruleta y el botón */
+    font-family: Helvetica, Arial, sans-serif; /* Fuente */
+    font-weight: bold; /* Negrita */
+    text-transform: uppercase; /* Texto en mayúsculas */
+    border-radius: 5px; /* Bordes redondeados */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Sombra */
+    position: relative; /* Respeta el flujo normal del diseño */
+    z-index: 10; /* Asegura que esté por encima de otros elementos */
 }
 .compsoul-roulette {
     --size: 40vw; /* Ajustado al ancho del viewport */
