@@ -40,11 +40,15 @@ h1 {
 }
 .compsoul-body {
     align-items: center;
-    background: #000000;
+    background: #000000; /* Fondo negro */
     display: flex;
     flex-flow: column wrap;
     font-size: 1.125vw;
-    padding: 2vw 6vw;
+    padding: 1vw 6vw; /* Reduce el padding superior e inferior */
+    margin: 0 auto; /* Asegura centrado horizontal */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.7); /* Sombra */
+    max-width: 1440px; /* Ancho máximo opcional */
 }
 .compsoul-roulette-label {
     background: #ff0000;
