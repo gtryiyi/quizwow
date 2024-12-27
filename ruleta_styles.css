@@ -6,7 +6,7 @@ body {
     font-family: 'FritzQuadrata', Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-image: url('https://i.imgur.com/bNVCtgR.png');
+    background-image: url('/images/fondo.png');
     background-size: cover;
     color: #fff;
     display: flex;
@@ -91,7 +91,7 @@ h1 {
     z-index: 2;
 }
 .compsoul-roulette:after {
-    background: #000000 url("https://i.imgur.com/vRsYnRc.png") no-repeat center;
+    background: #000000 url("/images/rabioso.png") no-repeat center;
     background-size: 80%;
     transform: translate(-50%, -50%);
     z-index: 2;
