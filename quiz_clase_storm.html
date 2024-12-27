@@ -438,7 +438,8 @@
                 .filter(([_, className]) => availableClasses.includes(className));
         
             // Completar las respuestas si hay menos de 4
-            while (validAnswers.length < 4) {
+            let iterations = 0; // Contador para evitar bucle infinito
+            while (validAnswers.length < 4 && iterations < 10) { // Máximo 10 iteraciones
                 const missingClass = availableClasses.find(cls => 
                     !validAnswers.some(([_, className]) => className === cls)
                 );
@@ -450,6 +451,7 @@
                         validAnswers.push([alternativeText, missingClass]);
                     }
                 }
+                iterations++; // Incrementar el contador
             }
         
             // Limitar a 4 respuestas
@@ -469,6 +471,7 @@
                     </button>` : ''}
             `;
         }
+
 
         function goBack() {
             // Retrocede una pregunta
