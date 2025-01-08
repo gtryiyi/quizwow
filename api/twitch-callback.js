@@ -2,7 +2,7 @@ const axios = require('axios');
 
 const CLIENT_ID = '5jmz2zhpvhpe6pgenh9didik787tvr'; // Replace with your Twitch client ID
 const CLIENT_SECRET = 'najc14d07o7pkwbldjpvzmxj7pf32i'; // Replace with your Twitch client secret
-const REDIRECT_URI = 'https://https://quizwow.vercel.app/api/twitch-callback'; // Update with your app's URL
+const REDIRECT_URI = 'https://quizwow.vercel.app/api/twitch-callback'; // Update with your app's URL
 
 export default async (req, res) => {
   const { code } = req.query;
