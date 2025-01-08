@@ -1,8 +1,12 @@
 const axios = require('axios');
 
-const CLIENT_ID = '5jmz2zhpvhpe6pgenh9didik787tvr'; // Replace with your Twitch client ID
-const CLIENT_SECRET = 'najc14d07o7pkwbldjpvzmxj7pf32i'; // Replace with your Twitch client secret
-const REDIRECT_URI = 'https://quizwow.vercel.app/api/twitch-callback'; // Update with your app's URL
+// Your Twitch credentials
+const CLIENT_ID = '5jmz2zhpvhpe6pgenh9didik787tvr';
+const CLIENT_SECRET = 'najc14d07o7pkwbldjpvzmxj7pf32i';
+const REDIRECT_URI = 'https://quizwow.vercel.app/api/twitch-callback';
+
+// Your whitelist of Twitch usernames
+const WHITELIST = ['gtryiyi']; // Replace with real usernames
 
 export default async (req, res) => {
   const { code } = req.query;
@@ -34,7 +38,15 @@ export default async (req, res) => {
     });
 
     const user = userResponse.data.data[0];
-    res.json({ user }); // Respond with user data
+
+    // Check if the user is on the whitelist
+    if (WHITELIST.includes(user.login)) {
+      // Redirect to the index page for authorized users
+      res.redirect('/');
+    } else {
+      // Deny access for unauthorized users
+      res.status(403).send('Access Denied: You are not on the whitelist.');
+    }
   } catch (error) {
     console.error(error);
     res.status(500).send('Error authenticating with Twitch.');
