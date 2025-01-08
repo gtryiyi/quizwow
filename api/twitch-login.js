@@ -1,6 +1,6 @@
 export default (req, res) => {
-  const CLIENT_ID = '5jmz2zhpvhpe6pgenh9didik787tvr'; // Replace with your Twitch Client ID
-  const REDIRECT_URI = 'https://quizwow.vercel.app/api/twitch-callback'; // Replace with your app's redirect URI
+  const CLIENT_ID = process.env.CLIENT_ID; // Twitch Client ID from environment variables
+  const REDIRECT_URI = process.env.REDIRECT_URI; // Redirect URI from environment variables
 
   // Scopes: no email needed, just basic authentication
   const SCOPES = [];
