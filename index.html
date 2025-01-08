@@ -20,6 +20,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            position: relative; /* Ensure relative positioning for absolute child elements */
         }
         .container {
             max-width: 800px;
@@ -77,16 +78,41 @@
             color: #000;
         }
         #logo-container {
-                position: absolute;
-                top: 20px;
-                width: 100%;
-                text-align: center;
-                z-index: 10;
+            position: absolute;
+            top: 20px;
+            width: 100%;
+            text-align: center;
+            z-index: 10;
         }
-
         #logo {
-                max-width: 300px;
-                height: auto;
+            max-width: 300px;
+            height: auto;
+        }
+        .twitch-button-container {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            width: 100%;
+        }
+        .twitch-button-container button {
+            display: inline-block;
+            padding: 15px 30px;
+            background: linear-gradient(to bottom, #6441a5, #4b367c); /* Twitch purple gradient */
+            color: white;
+            font-family: 'FritzQuadrata', Arial, sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+            text-shadow: 1px 1px 3px #000;
+        }
+        .twitch-button-container button:hover {
+            background: linear-gradient(to bottom, #4b367c, #6441a5);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
         }
     </style>
 </head>
@@ -125,8 +151,10 @@
         backgroundMusic.play();
     </script>
     
-    <button onclick="window.location.href='https://id.twitch.tv/oauth2/authorize?client_id=5jmz2zhpvhpe6pgenh9didik787tvr&redirect_uri=https://quizwow.vercel.app/api/twitch-callback&response_type=code&scope=user:read:email'">
-  Login with Twitch
-    </button>
+    <div class="twitch-button-container">
+        <button onclick="window.location.href='https://id.twitch.tv/oauth2/authorize?client_id=5jmz2zhpvhpe6pgenh9didik787tvr&redirect_uri=https://quizwow.vercel.app/api/twitch-callback&response_type=code&scope=user:read:email'">
+            Login with Twitch
+        </button>
+    </div>
 </body>
 </html>
