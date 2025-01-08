@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    { "source": "/", "destination": "/index.html" },
+    { "source": "/quiz_clase_storm", "destination": "/quiz_clase_storm.html" },
+    { "source": "/quiz_raza_storm", "destination": "/quiz_raza_storm.html" },
+    { "source": "/ruleta", "destination": "/ruleta.html" }
+  ]
+}
