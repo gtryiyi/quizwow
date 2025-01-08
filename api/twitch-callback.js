@@ -4,7 +4,7 @@ const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
 const REDIRECT_URI = process.env.REDIRECT_URI;
 
-// Your whitelist of Twitch usernames
+// whitelist of Twitch usernames
 const WHITELIST = ['gtryiyi', 'otherAuthorizedUser']; // Add authorized usernames here
 
 export default async (req, res) => {
