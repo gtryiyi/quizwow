@@ -124,5 +124,11 @@
         backgroundMusic.volume = 0.1;
         backgroundMusic.play();
     </script>
+    <button id="twitch-login">Login with Twitch</button>
+    <script>
+        document.getElementById('twitch-login').addEventListener('click', () => {
+            window.location.href = '/api/twitch-login';
+        });
+    </script>
 </body>
 </html>
