@@ -3,8 +3,8 @@ const path = require('path');
 const app = express();
 
 // Environment variables for Twitch
-const CLIENT_ID = process.env.CLIENT_ID; // Ensure this is set in your environment variables
-const REDIRECT_URI = process.env.REDIRECT_URI; // Example: "https://your-vercel-app-url.com/api/twitch-callback"
+const CLIENT_ID = process.env.CLIENT_ID; // 
+const REDIRECT_URI = process.env.REDIRECT_URI; // 
 const AUTH_URL = `https://id.twitch.tv/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code&scope=user:read:email`;
 
 // Serve static files from the current root directory
