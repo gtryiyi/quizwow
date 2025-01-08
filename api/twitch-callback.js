@@ -1,12 +1,11 @@
 const axios = require('axios');
 
-// Your Twitch credentials
-const CLIENT_ID = '5jmz2zhpvhpe6pgenh9didik787tvr';
-const CLIENT_SECRET = 'najc14d07o7pkwbldjpvzmxj7pf32i';
-const REDIRECT_URI = 'https://quizwow.vercel.app/api/twitch-callback';
+const CLIENT_ID = process.env.CLIENT_ID;
+const CLIENT_SECRET = process.env.CLIENT_SECRET;
+const REDIRECT_URI = process.env.REDIRECT_URI;
 
 // Your whitelist of Twitch usernames
-const WHITELIST = ['gtryiyi']; // Replace with real usernames
+const WHITELIST = ['gtryiyi', 'otherAuthorizedUser']; // Add authorized usernames here
 
 export default async (req, res) => {
   const { code } = req.query;
@@ -29,7 +28,7 @@ export default async (req, res) => {
 
     const { access_token } = tokenResponse.data;
 
-    // Use the access token to fetch user details
+    // Fetch user details using the access token
     const userResponse = await axios.get('https://api.twitch.tv/helix/users', {
       headers: {
         Authorization: `Bearer ${access_token}`,
@@ -37,18 +36,21 @@ export default async (req, res) => {
       },
     });
 
-    const user = userResponse.data.data[0];
+    const user = userResponse.data.data[0]; // Extract user data
+    const username = user.login; // Get Twitch username
 
-    // Check if the user is on the whitelist
-    if (WHITELIST.includes(user.login)) {
-      // Redirect to the index page for authorized users
+    console.log(`User logged in: ${username}`);
+
+    // Check if the username is on the whitelist
+    if (WHITELIST.includes(username)) {
+      // Redirect to the index page if authorized
       res.redirect('/');
     } else {
-      // Deny access for unauthorized users
+      // Deny access if not authorized
       res.status(403).send('Access Denied: You are not on the whitelist.');
     }
   } catch (error) {
-    console.error(error);
-    res.status(500).send('Error authenticating with Twitch.');
+    console.error('Error during Twitch authentication:', error.response?.data || error.message);
+    res.status(500).send('Authentication failed. Please try again.');
   }
 };
