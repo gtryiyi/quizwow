@@ -1,3 +1,4 @@
+require('dotenv').config();
 const axios = require('axios');
 
 const CLIENT_ID = process.env.CLIENT_ID;
