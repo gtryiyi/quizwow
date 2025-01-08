@@ -1,8 +1,10 @@
 {
-  "rewrites": [
-    { "source": "/", "destination": "/index.html" },
-    { "source": "/quiz_clase_storm", "destination": "/quiz_clase_storm.html" },
-    { "source": "/quiz_raza_storm", "destination": "/quiz_raza_storm.html" },
-    { "source": "/ruleta", "destination": "/ruleta.html" }
-  ]
+    "rewrites": [
+      { "source": "/", "destination": "/index.html" },
+      { "source": "/quiz_clase_storm", "destination": "/quiz_clase_storm.html" },
+      { "source": "/quiz_raza_storm", "destination": "/quiz_raza_storm.html" },
+      { "source": "/ruleta", "destination": "/ruleta.html" },
+      { "source": "/login", "destination": "/api/login" },
+      { "source": "/api/twitch-callback", "destination": "/api/twitch-callback.js" }
+    ]
 }

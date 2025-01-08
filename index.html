@@ -124,11 +124,9 @@
         backgroundMusic.volume = 0.1;
         backgroundMusic.play();
     </script>
-    <button id="twitch-login">Login with Twitch</button>
-    <script>
-        document.getElementById('twitch-login').addEventListener('click', () => {
-            window.location.href = '/api/twitch-login';
-        });
-    </script>
+    
+    <button onclick="window.location.href='https://id.twitch.tv/oauth2/authorize?client_id=5jmz2zhpvhpe6pgenh9didik787tvr&redirect_uri=https://quizwow.vercel.app/api/twitch-callback&response_type=code&scope=user:read:email'">
+  Login with Twitch
+    </button>
 </body>
 </html>
