@@ -5,7 +5,7 @@ const axios = require('axios');
 
 const app = express();
 
-// Environment variables for Twitch
+// Twitch credentials and whitelist
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
 const REDIRECT_URI = process.env.REDIRECT_URI;
@@ -13,14 +13,13 @@ const WHITELIST = ['gtryiyi', 'otherAuthorizedUser'];
 
 // Middleware
 app.use(cookieParser());
-app.use(express.static(__dirname));
 
 // Helper function to validate session
 async function validateSession(req, res, next) {
     const token = req.cookies['auth_token'];
 
     if (!token) {
-        return res.redirect(`/login`);
+        return res.redirect('/login');
     }
 
     try {
@@ -34,33 +33,32 @@ async function validateSession(req, res, next) {
         const username = userResponse.data.data[0].login;
 
         if (WHITELIST.includes(username)) {
-            req.user = username;
+            req.user = username; // Attach user info for later use
             return next();
         } else {
-            res.status(403).send('Access Denied: You are not on the whitelist.');
+            return res.status(403).send('Access Denied: You are not on the whitelist.');
         }
     } catch (error) {
         console.error('Session validation failed:', error.message);
-        return res.redirect(`/login`);
+        return res.redirect('/login');
     }
 }
 
-// Protect all routes
+// Apply authentication to all routes
 app.use(validateSession);
 
-// Routes for your HTML files
-app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
-app.get('/quiz_clase_storm', (req, res) => res.sendFile(path.join(__dirname, 'quiz_clase_storm.html')));
-app.get('/quiz_raza_storm', (req, res) => res.sendFile(path.join(__dirname, 'quiz_raza_storm.html')));
-app.get('/ruleta', (req, res) => res.sendFile(path.join(__dirname, 'ruleta.html')));
+// Static file routes
+app.use(express.static(path.join(__dirname)));
 
 // Login route
 app.get('/login', (req, res) => {
-    const authUrl = `https://id.twitch.tv/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=code&scope=user:read:email`;
+    const authUrl = `https://id.twitch.tv/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(
+        REDIRECT_URI
+    )}&response_type=code&scope=user:read:email`;
     res.redirect(authUrl);
 });
 
-// Callback route
+// Twitch OAuth callback route
 app.get('/api/twitch-callback', async (req, res) => {
     const { code } = req.query;
 
