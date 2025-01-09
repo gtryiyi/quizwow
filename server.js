@@ -14,15 +14,16 @@ const WHITELIST = ['gtryiyi', 'otherAuthorizedUser'];
 // Middleware
 app.use(cookieParser());
 
-// Helper function to validate session
-async function validateSession(req, res, next) {
+// Middleware to enforce authentication
+async function authenticate(req, res, next) {
     const token = req.cookies['auth_token'];
 
     if (!token) {
-        return res.redirect('/login');
+        return res.redirect('/login'); // Redirect to login if no token
     }
 
     try {
+        // Verify token with Twitch API
         const userResponse = await axios.get('https://api.twitch.tv/helix/users', {
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -33,21 +34,21 @@ async function validateSession(req, res, next) {
         const username = userResponse.data.data[0].login;
 
         if (WHITELIST.includes(username)) {
-            req.user = username; // Attach user info for later use
+            req.user = username; // Attach user info to the request
             return next();
         } else {
             return res.status(403).send('Access Denied: You are not on the whitelist.');
         }
     } catch (error) {
-        console.error('Session validation failed:', error.message);
+        console.error('Authentication failed:', error.message);
         return res.redirect('/login');
     }
 }
 
-// Apply authentication to all routes
-app.use(validateSession);
+// Protect all routes
+app.use(authenticate);
 
-// Static file routes
+// Serve static files
 app.use(express.static(path.join(__dirname)));
 
 // Login route
@@ -80,7 +81,7 @@ app.get('/api/twitch-callback', async (req, res) => {
         const { access_token } = tokenResponse.data;
         res.cookie('auth_token', access_token, { httpOnly: true });
 
-        res.redirect('/');
+        res.redirect('/'); // Redirect to homepage after successful login
     } catch (error) {
         console.error('Error during Twitch authentication:', error.message);
         res.status(500).send('Authentication failed. Please try again.');
