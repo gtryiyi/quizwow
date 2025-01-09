@@ -14,11 +14,11 @@ const WHITELIST = ['gtryiyi', 'otherAuthorizedUser'];
 // Middleware to parse cookies
 app.use(cookieParser());
 
-// Middleware to enforce login
+// Middleware to enforce authentication
 app.use(async (req, res, next) => {
     const token = req.cookies['auth_token'];
 
-    // Allow login and callback routes without authentication
+    // Allow access to Twitch login and callback endpoints
     if (req.path === '/api/twitch-login' || req.path === '/api/twitch-callback') {
         return next();
     }
@@ -29,7 +29,7 @@ app.use(async (req, res, next) => {
     }
 
     try {
-        // Verify the token with Twitch API
+        // Validate the token with Twitch API
         const userResponse = await axios.get('https://api.twitch.tv/helix/users', {
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -41,7 +41,7 @@ app.use(async (req, res, next) => {
 
         // Check if the user is on the whitelist
         if (WHITELIST.includes(username)) {
-            req.user = username; // Attach user info to request
+            req.user = username; // Attach user info
             return next();
         } else {
             return res.status(403).send('Access Denied: You are not on the whitelist.');
@@ -52,7 +52,7 @@ app.use(async (req, res, next) => {
     }
 });
 
-// Serve static files from the public directory
+// Serve static files only after authentication
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Twitch login route
